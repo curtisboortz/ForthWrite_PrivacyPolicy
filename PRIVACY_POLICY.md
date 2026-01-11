@@ -1,6 +1,6 @@
 # Privacy Policy for FinalDraft
 
-**Last Updated:** January 9, 2026
+**Last Updated:** January 10, 2026
 
 ## Overview
 
@@ -41,10 +41,12 @@ The Extension accesses the following data to function:
 To improve the quality of AI-generated drafts, the Extension may collect:
 
 - **Draft-to-sent comparisons**: When you send an email that was drafted by FinalDraft, we may capture both the original draft and your final sent version to understand how to improve future drafts.
-- **What we collect**: Email content, subject lines, and metadata (timestamps, thread IDs)
+- **What we collect**: 
+  - Email content, subject lines, and metadata (timestamps, thread IDs)
+  - User identification: Your email address and Google account ID (to associate training data with users for personalized improvements)
 - **What we DON'T collect**: Attachments, API keys, or personal account credentials
 - **Storage**: Training samples are stored securely in Supabase (cloud database)
-- **Purpose**: Solely to improve AI draft generation quality
+- **Purpose**: Solely to improve AI draft generation quality and provide personalized email drafting
 - **Retention**: Training samples are automatically deleted after 30 days
 
 ### Opting Out of Training Data
@@ -110,4 +112,4 @@ We may update this policy occasionally. Significant changes will be noted in the
 
 ---
 
-*This privacy policy is effective as of January 9, 2026.*
+*This privacy policy is effective as of January 10, 2026.*
