@@ -1,19 +1,20 @@
-# Privacy Policy for FinalDraft
+# Privacy Policy for ForthWrite
 
-**Last updated:** April 21, 2026
+**Last updated:** May 27, 2026
 
 > The canonical, always-current version of this policy lives at
-> **https://finaldraft.dev/privacy**. This Markdown copy is kept byte-for-byte
-> in sync with that page for the convenience of Chrome Web Store reviewers,
-> Google OAuth verification reviewers, and anyone reading the source repo.
+> **https://www.forthwrite.ai/privacy**. This Markdown copy is kept in sync
+> with that page for the convenience of Chrome Web Store reviewers, Microsoft
+> AppSource reviewers, Google OAuth verification reviewers, and anyone reading
+> the source repo.
 
 ---
 
 ## 1. Overview
 
-FinalDraft ("we," "our," or "us") is an AI-powered email drafting tool. This
+ForthWrite ("we," "our," or "us") is an AI-powered email drafting tool. This
 policy explains how we collect, use, and protect your information when you use
-our Chrome extension and web application at finaldraft.dev.
+our Chrome extension, Outlook Add-in, and web application at forthwrite.ai.
 
 ## 2. Information We Collect
 
@@ -28,10 +29,11 @@ We collect the following categories of information:
 - **Sent-email snippets for voice matching (Standard and Pro):** When you enable voice-matching capture in the extension, snippets of emails you send (the body of your reply, the surrounding thread, and metadata like timestamps and platform) are stored in our database so we can learn your writing voice. On Standard, this powers a private writing-style profile injected into the model. On Pro, snippets are additionally embedded so the model can retrieve your past similar emails at draft time. Capture is off by default until you enable it.
 - **Historical email backfill (Pro only, opt-in):** If you choose to import historical emails from the Training Dashboard, we read up to the last six months of your sent mail via Gmail or Microsoft OAuth and store the same snippet-level information described above. We do not read inbox or non-sent folders, and the import is one-shot. We do not poll your mailbox in the background.
 - **OAuth tokens for connected inboxes:** When you connect a Gmail or Outlook account on the web, we store the access and refresh tokens issued by the provider, encrypted at rest using AES-256-GCM with per-user data-encryption keys wrapped by a master key held only on our servers. Tokens are used solely to support the features you have asked for (currently: historical email backfill; in the future: high-confidence send-from-web notifications).
+- **Outlook Add-in:** When you install the ForthWrite Outlook Add-in and click "Connect," we create a linked-mailbox record storing your Outlook mailbox email address and a 7-day signed authentication token. This record is shown on your Security dashboard and can be revoked at any time. When you click "Generate Draft," the current email thread (headers and body) is read via Office.js and sent to our proxy in the same way as the Chrome extension. Thread content is not stored after the draft is returned. If you send a reply after generating a draft, the add-in's Smart Alerts handler captures the generated draft and your final sent body so we can learn how you edited the AI output (the same training-capture flow as the Chrome extension). Capture only fires when a draft was generated for the same thread in the same session.
 
 ## 3. How We Use Your Information
 
-- To provide and maintain the FinalDraft service.
+- To provide and maintain the ForthWrite service.
 - To manage your subscription and billing.
 - To enforce rate limits on the free tier.
 - To communicate important service updates.
@@ -40,12 +42,15 @@ We collect the following categories of information:
 
 ## 4. API Keys and AI Providers
 
-When you provide your own API key (BYOK), it is stored locally in your browser
-via Chrome's storage API. Your key is sent directly from your browser to the AI
-provider (OpenAI, Anthropic, Google, xAI, etc.) and never passes through our
-servers. For free-tier users without an API key, draft requests are routed
+When you provide your own API key (BYOK), keys saved through the web app are
+stored encrypted at rest using AES-256-GCM envelope encryption with per-user
+data-encryption keys wrapped by a master key held only on our servers. The key
+is decrypted only long enough to send your draft request to the AI provider you
+selected (OpenAI, Anthropic, Google, xAI, etc.). Some legacy extension-only
+keys may still live only in Chrome's local storage until you migrate them to
+the web app. For free-tier users without an API key, draft requests are routed
 through our backend proxy, where email content is sent to OpenAI to generate
-drafts. This content is not stored after the response is returned.
+drafts. Draft content is not stored after the response is returned.
 
 ## 5. Data Storage and Security
 
@@ -56,10 +61,10 @@ HTTPS.
 
 Sent-email snippets captured for voice matching are stored in the same Supabase
 database, scoped per user, and accessible only to your own account. OAuth
-tokens for connected Gmail and Outlook accounts are encrypted at rest using
-AES-256-GCM envelope encryption with per-user data-encryption keys; the master
-key is held only on our application servers and is never written to the
-database.
+tokens for connected Gmail and Outlook accounts and BYOK credentials saved in
+the web app are encrypted at rest using AES-256-GCM envelope encryption with
+per-user data-encryption keys; the master key is held only on our application
+servers and is never written to the database.
 
 ## 6. Third-Party Services
 
@@ -76,9 +81,9 @@ usage counters reset weekly.
 Sent-email snippets captured for voice matching are retained for as long as you
 keep voice-matching capture enabled, so we can keep your writing-style profile
 current. You can disable capture at any time from the extension options page,
-and you can request deletion of all captured snippets by emailing us. Your
-account, subscription, and writing-style profile remain intact unless you also
-request full account deletion.
+and you can delete all captured snippets from the dashboard's Settings page or
+by emailing us. Your account, subscription, and writing-style profile remain
+intact unless you also request full account deletion.
 
 You can request deletion of your account and all associated data (including
 snippets, the writing-style profile, OAuth tokens, and any embeddings) by
@@ -88,7 +93,7 @@ emailing us.
 
 You have the right to access, correct, or delete your personal data. You can
 export your data or request account deletion at any time by contacting us at
-**support@finaldraft.dev**.
+**support@forthwrite.ai**.
 
 You can also disable voice-matching capture at any time from the extension
 options page, and disconnect any linked Gmail or Outlook inbox from the
@@ -97,7 +102,7 @@ OAuth tokens for that account immediately.
 
 ## 9. Google API Services User Data Policy
 
-FinalDraft's use and transfer to any other app of information received from
+ForthWrite's use and transfer to any other app of information received from
 Google APIs will adhere to the
 [Google API Services User Data Policy](https://developers.google.com/terms/api-services-user-data-policy),
 including the **Limited Use** requirements. Specifically:
@@ -107,13 +112,13 @@ including the **Limited Use** requirements. Specifically:
 - We do not transfer Gmail data to others except as necessary to provide or improve user-facing features that are prominent in the application's user interface, to comply with applicable law, or as part of a merger, acquisition, or sale of assets with appropriate notice to users.
 - We do not use Gmail data to develop, improve, or train generalized or non-personalized AI or machine-learning models. The voice-matching writing-style profile and Pro retrieval embeddings described above are user-scoped, used only to draft email *for that same user*, and never combined with another user's data or shared with any third party.
 
-The specific Google OAuth scopes FinalDraft requests, and the user-facing
+The specific Google OAuth scopes ForthWrite requests, and the user-facing
 feature each scope powers:
 
-- **`gmail.readonly`** — reading the open Gmail thread to build draft context; polling the inbox-thread list (read-only, `in:inbox is:unread`) so the extension knows which new conversations to draft for; reading sent-mail snippets when you opt into voice capture or one-shot historical backfill.
-- **`gmail.compose`** — creating, updating, and deleting *only the drafts FinalDraft itself authored*. We never modify or delete drafts you wrote by hand.
-- **`gmail.settings.basic`** (web only) — enumerating your send-as aliases via `users.settings.sendAs.list` so the right "From" identity is attached when drafting. No other settings are read or written.
-- **`userinfo.email`** — identifying the authenticated Google account so the extension can match it to your FinalDraft subscription.
+- **`gmail.readonly`** - reading the open Gmail thread to build draft context; polling the inbox-thread list (read-only, `in:inbox is:unread`) so the extension knows which new conversations to draft for; reading sent-mail snippets when you opt into voice capture or one-shot historical backfill.
+- **`gmail.compose`** - creating, updating, and deleting *only the drafts ForthWrite itself authored*. We never modify or delete drafts you wrote by hand.
+- **`gmail.settings.basic`** (web only) - enumerating your send-as aliases via `users.settings.sendAs.list` so the right "From" identity is attached when drafting. No other settings are read or written.
+- **`userinfo.email`** - identifying the authenticated Google account so the extension can match it to your ForthWrite subscription.
 
 ## 10. Changes to This Policy
 
@@ -122,4 +127,4 @@ changes via email or a notice on the website.
 
 ## 11. Contact
 
-For privacy-related questions, contact us at **support@finaldraft.dev**.
+For privacy-related questions, contact us at **support@forthwrite.ai**.
